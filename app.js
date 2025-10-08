@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/contact', async (req, res) => {
-  const { name, email, message, companyName, phoneNumber } = req.body;
+  const { fullName, email, message, companyName, phoneNumber } = req.body;
 
   try {
     const transporter = nodemailer.createTransport({
@@ -22,9 +22,9 @@ app.post('/contact', async (req, res) => {
     const mailOptions = {
       from: email,
       to: process.env.CONTACT_EMAIL,
-      subject: `New Message from ${name}`,
+      subject: `New Message from ${fullName}`,
       text: `
-        Name: ${name}
+        Name: ${fullName}
         Email: ${email}
         Company: ${companyName}
         Phone: ${phoneNumber}
