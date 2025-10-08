@@ -20,17 +20,18 @@ app.post('/contact', async (req, res) => {
     });
 
     const mailOptions = {
-      from: email,
-      to: process.env.CONTACT_EMAIL,
-      subject: `New Message from ${fullName}`,
-      text: `
-        Name: ${fullName}
-        Email: ${email}
-        Company: ${companyName}
-        Phone: ${phoneNumber}
-        Message: ${message}
-      `,
-    };
+  from: process.env.CONTACT_EMAIL, // your authenticated Gmail
+  to: process.env.CONTACT_EMAIL,
+  subject: `New Message from ${fullName}`,
+  text: `
+    Name: ${fullName}
+    Email: ${email}
+    Company: ${companyName}
+    Phone: ${phoneNumber}
+    Message: ${message}
+  `,
+};
+
     await transporter.sendMail(mailOptions);
 
     res.status(200).json({ success: true, message: 'Email sent successfully!' });
